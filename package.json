@@ -1,0 +1,43 @@
+{
+  "name": "customreactboilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write \"src/**/*.js\"",
+    "eslint-fix": "eslint --fix \"src/**/*.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-config-standard-jsx": "^6.0.2",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "prettier": "1.18.2",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.4",
+    "webpack-dev-server": "^3.7.1"
+  }
+}
