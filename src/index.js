@@ -1,26 +1,19 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import './styles/style.scss'
+import 'Styles/style.scss'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import LandingContainer from './views/Landing/'
 
-class Welcome extends React.Component {
+class App extends Component {
   render () {
     return (
       <React.Fragment>
-        <h1 className='heading'>
-          Hello World from React boilerplate
-          <p className=''>wkjbfksjb</p>
-        </h1>
-        <h1 className='heading'>
-          Hello World from React boilerplate
-          <p className=''>
-            wkjbfksjb
-            <span>Himanshu</span>
-          </p>
-          API url {process.env.API_URL}
-        </h1>
+        <Router>
+          <Route exact path='/' component={LandingContainer} />
+        </Router>
       </React.Fragment>
     )
   }
 }
 
-ReactDOM.render(<Welcome />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))

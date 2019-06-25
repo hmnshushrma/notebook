@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const dotenv = require('dotenv')
+const path = require('path')
 module.exports = () => {
   const env = dotenv.config().parsed
   const envKeys = Object.keys(env).reduce((prev, next) => {
@@ -18,6 +19,13 @@ module.exports = () => {
       publicPath: '/dist/'
     },
     devtool: 'inline-source-map',
+    resolve: {
+      alias: {
+        Styles: path.resolve(__dirname, 'src/styles/'),
+        Assets: path.resolve(__dirname, 'src/assets/'),
+        Redux: path.resolve(__dirname, 'src/redux/')
+      }
+    },
     module: {
       rules: [
         {
