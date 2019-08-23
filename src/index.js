@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import 'Styles/style.scss'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import LandingContainer from './views/Landing/'
+import Login from './views/login/'
 
 class App extends Component {
   render () {
     return (
       <React.Fragment>
         <Router>
-          <Route exact path='/' component={LandingContainer} />
+          <Route exact path='/' component={Login} />
         </Router>
       </React.Fragment>
     )

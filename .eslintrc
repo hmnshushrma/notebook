@@ -9,5 +9,11 @@
     "react": {
       "version": "detect"
     }
-  }
+  },
+  "rules": {
+        "semi": "error",
+        "eqeqeq": ["error", "smart"],
+        "no-debugger": "off"
+
+    }
 }
