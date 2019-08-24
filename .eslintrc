@@ -13,7 +13,7 @@
   "rules": {
         "semi": "error",
         "eqeqeq": ["error", "smart"],
-        "no-debugger": "off"
-
+        "no-debugger": "off",
+        "space-before-function-paren": [0, "always"],
     }
 }
