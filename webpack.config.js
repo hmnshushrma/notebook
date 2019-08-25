@@ -1,6 +1,13 @@
 const webpack = require('webpack')
 const dotenv = require('dotenv')
 const path = require('path')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+const rootDir = path.resolve(__dirname, '.')
+const srcDir = path.resolve(__dirname, '.', 'src')
+const distDir = path.resolve(__dirname, '.', 'dist')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const cssnano = require('cssnano')
+
 module.exports = () => {
   const env = dotenv.config().parsed
   const envKeys = Object.keys(env).reduce((prev, next) => {
@@ -8,22 +15,41 @@ module.exports = () => {
     return prev
   }, {})
   return {
+    context: rootDir,
     entry: './src/index.js',
     output: {
-      path: __dirname + '/dist',
+      path: distDir,
       publicPath: '/',
       filename: 'bundle.js'
     },
     devServer: {
-      contentBase: './',
-      publicPath: '/dist/'
+      contentBase: rootDir,
+      publicPath: '/',
+      historyApiFallback: true,
+      hot: true,
+      open: true
     },
-    devtool: 'inline-source-map',
+    stats: {
+      colors: true,
+      hash: true,
+      timings: true,
+      assets: true,
+      chunks: true,
+      chunkModules: true,
+      modules: true,
+      children: false
+    },
+    devtool: 'cheap-module-source-map',
     resolve: {
+      extensions: ['*', '.js', '.jsx'],
       alias: {
         Styles: path.resolve(__dirname, 'src/styles/'),
         Assets: path.resolve(__dirname, 'src/assets/'),
-        Redux: path.resolve(__dirname, 'src/redux/')
+        Redux: path.resolve(__dirname, 'src/redux/'),
+        Views: path.resolve(__dirname, 'src/views/'),
+        Hoc: path.resolve(__dirname, 'src/hoc/'),
+        Routes: path.resolve(__dirname, 'src/routes/'),
+        Util: path.resolve(__dirname, 'src/util')
       }
     },
     module: {
@@ -31,7 +57,12 @@ module.exports = () => {
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          use: ['babel-loader', 'eslint-loader'] // include eslint-loader
+          use: ['babel-loader'], // include eslint-loader,
+          include: path.resolve(__dirname, './', 'src')
+        },
+        {
+          test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|otf|svg)(\?[a-z0-9=.]+)?$/,
+          loader: 'url-loader'
         },
         {
           test: /\.(scss)$/,
@@ -69,6 +100,54 @@ module.exports = () => {
         }
       ]
     },
-    plugins: [new webpack.DefinePlugin(envKeys)]
+    optimization: {
+      minimize: true,
+      minimizer: [
+        new OptimizeCSSAssetsPlugin({
+          cssProcessor: cssnano,
+          cssProcessorOptions: {
+            discardComments: {
+              removeAll: true
+            },
+            safe: true
+          },
+          canPrint: false
+        })
+      ],
+      splitChunks: {
+        minSize: 30000,
+        maxSize: 0,
+        minChunks: 1,
+        automaticNameDelimiter: '~',
+        name: true,
+        cacheGroups: {
+          default: false,
+          vendors: false,
+          vendors: {
+            chunks: 'all',
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10
+          },
+          common: {
+            chunks: 'async',
+            minChunks: 2,
+            name: 'common',
+            priority: -20,
+            reuseExistingChunk: true
+          }
+        }
+      }
+    },
+    plugins: [
+      new HtmlWebPackPlugin({
+        // where to find the html template
+        template: path.join(rootDir, 'index.html'),
+        // where to put the generated file
+        path: distDir,
+        // the output file name
+        filename: 'index.html'
+      }),
+      new webpack.DefinePlugin(envKeys)
+    ]
   }
 }
