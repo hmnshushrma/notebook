@@ -20,7 +20,7 @@ module.exports = () => {
     output: {
       path: distDir,
       publicPath: '/',
-      filename: 'bundle.js'
+      filename: '[hash].js'
     },
     devServer: {
       contentBase: rootDir,
@@ -28,16 +28,9 @@ module.exports = () => {
       historyApiFallback: true,
       hot: true,
       open: true
-    },
-    stats: {
-      colors: true,
-      hash: true,
-      timings: true,
-      assets: true,
-      chunks: true,
-      chunkModules: true,
-      modules: true,
-      children: false
+      // needed for phone testing
+      // host:'0.0.0.0',
+      // port:'8080'
     },
     devtool: 'cheap-module-source-map',
     resolve: {
@@ -49,7 +42,8 @@ module.exports = () => {
         Views: path.resolve(__dirname, 'src/views/'),
         Hoc: path.resolve(__dirname, 'src/hoc/'),
         Routes: path.resolve(__dirname, 'src/routes/'),
-        Util: path.resolve(__dirname, 'src/util')
+        FormConstants: path.resolve(__dirname, 'src/FormConstants/'),
+        Util: path.resolve(__dirname, 'src/util/')
       }
     },
     module: {
@@ -57,7 +51,7 @@ module.exports = () => {
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          use: ['babel-loader'], // include eslint-loader,
+          use: ['babel-loader', 'eslint-loader'], // include eslint-loader,
           include: path.resolve(__dirname, './', 'src')
         },
         {
@@ -141,11 +135,15 @@ module.exports = () => {
     plugins: [
       new HtmlWebPackPlugin({
         // where to find the html template
-        template: path.join(rootDir, 'index.html'),
+        template: path.resolve(__dirname, 'index.html'),
         // where to put the generated file
         path: distDir,
         // the output file name
-        filename: 'index.html'
+        filename: 'index.html',
+        files: {
+          css: ['styles.css'],
+          js: ['bundle.js']
+        }
       }),
       new webpack.DefinePlugin(envKeys)
     ]

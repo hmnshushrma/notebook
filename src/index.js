@@ -4,7 +4,7 @@ import 'Styles/style.scss'
 import FormContainer from './views/'
 
 class App extends Component {
-  render () {
+  render() {
     return (
       <React.Fragment>
         <FormContainer />
