@@ -22,12 +22,13 @@
     "live",
     "edit",
     "webpack"],
-  "author": "Himanshu Sharma <hmnshu26@gmail.com> (http://hmnshu.co)"
+  "author": "Himanshu Sharma <hmnshu26@gmail.com> (http://hmnshu.co)",
   "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/hmnshushrma/react-custom-boilerplate.git"
-  }
+  },
+  "bugs": "https://github.com/hmnshushrma/react-custom-boilerplate/issues",
   "license": "ISC",
   "dependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
