@@ -5,8 +5,10 @@ const HtmlWebPackPlugin = require('html-webpack-plugin')
 const rootDir = path.resolve(__dirname, '.')
 const srcDir = path.resolve(__dirname, '.', 'src')
 const distDir = path.resolve(__dirname, '.', 'dist')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const devMode = process.env.NODE_ENV !== 'production'
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const cssnano = require('cssnano')
+const TerserJSPlugin = require('terser-webpack-plugin')
 
 module.exports = () => {
   const env = dotenv.config().parsed
@@ -59,37 +61,11 @@ module.exports = () => {
           loader: 'url-loader'
         },
         {
-          test: /\.(scss)$/,
+          test: /\.s?[ac]ss$/,
           use: [
-            {
-              loader: 'style-loader'
-            },
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true
-              }
-            }
-          ]
-        },
-        {
-          test: /\.(css)$/,
-          use: [
-            {
-              loader: 'style-loader'
-            },
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true
-              }
-            }
+            MiniCssExtractPlugin.loader,
+            { loader: 'css-loader', options: { url: false, sourceMap: true } },
+            { loader: 'sass-loader', options: { sourceMap: true } }
           ]
         }
       ]
@@ -97,8 +73,9 @@ module.exports = () => {
     optimization: {
       minimize: true,
       minimizer: [
+        new TerserJSPlugin({}),
         new OptimizeCSSAssetsPlugin({
-          cssProcessor: cssnano,
+          cssProcessor: require('cssnano'),
           cssProcessorOptions: {
             discardComments: {
               removeAll: true
@@ -145,7 +122,11 @@ module.exports = () => {
           js: ['bundle.js']
         }
       }),
+      new MiniCssExtractPlugin({
+        filename: '[hash].css'
+      }),
       new webpack.DefinePlugin(envKeys)
-    ]
+    ],
+    mode: devMode ? 'development' : 'production'
   }
 }
