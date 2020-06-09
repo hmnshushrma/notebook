@@ -1,2 +1,1 @@
-# react-custom-boilerplate
-custom-react-boilerplate
+# react-advance-concepts
