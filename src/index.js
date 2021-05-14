@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import 'Styles/style.scss'
-import FormContainer from './views/'
+import AppContainer from './views/'
+import { Provider } from 'react-redux'
+import store from './store/store'
 
-class App extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <FormContainer />
-      </React.Fragment>
-    )
-  }
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
+  )
 }
-
 ReactDOM.render(<App />, document.getElementById('root'))

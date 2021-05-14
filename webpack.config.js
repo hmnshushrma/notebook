@@ -34,7 +34,7 @@ module.exports = () => {
       // host:'0.0.0.0',
       // port:'8080'
     },
-    devtool: 'cheap-module-source-map',
+    devtool: "#eval-source-map",
     resolve: {
       extensions: ['*', '.js', '.jsx'],
       alias: {

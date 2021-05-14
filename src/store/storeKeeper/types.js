@@ -1,0 +1,2 @@
+export const PRODUCT_ADDED = 'PRODUCT_ADDED'
+export const PRODUCT_UPDATED = 'PRODUCT_UPDATED'

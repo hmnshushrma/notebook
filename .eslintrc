@@ -21,7 +21,7 @@
         "space-before-function-paren": ["error", "never"],
         "jsx-quotes": ["error", "prefer-single"],
         "camelcase": ["error", {"ignoreDestructuring": true , "properties": "never" }],
-        "no-console": ["warn", { allow: ["warn"] }],
+        "no-console": ["off", { allow: ["warn"] }],
         "no-multi-spaces": "error",
         "max-len": ["error", { "code": 150 }]
     }
