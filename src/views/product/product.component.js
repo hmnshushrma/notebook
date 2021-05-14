@@ -60,12 +60,7 @@ function ProductInward(props) {
     Product Description
         <textarea name='productDesc' value={product.productDesc} onChange={(e) => handleProductOrder(e)} />
       </label>
-
-
-
-
       <button onClick={e => onSubmitList(e)} > Submit </button>
-
       {productArr && productArr.map((productItem) => {
       return(
         <ul key={uuidv4()}>
