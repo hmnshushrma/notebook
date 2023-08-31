@@ -1,16 +1,21 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import 'Styles/style.scss'
+import React, { useEffect } from 'react'
+import { createRoot } from 'react-dom/client'
 import AppContainer from './views/'
 import { Provider } from 'react-redux'
 import store from './store/store'
 
+function AppWithCallbackAfterRender() {
+  useEffect(() => {
+    console.log('rendered')
+  })
 
-const App = () => {
   return (
     <Provider store={store}>
-      <AppContainer />
+      <AppContainer tab='home' />
     </Provider>
   )
 }
-ReactDOM.render(<App />, document.getElementById('root'))
+
+const container = document.getElementById('root')
+const root = createRoot(container)
+root.render(<AppWithCallbackAfterRender />)

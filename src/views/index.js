@@ -1,16 +1,19 @@
-import React, { Component } from 'react'
-import ProductInward from './product/product.component'
-import Product from './product/product.container'
-import Counter from './counter'
+import React, { Component, Suspense, lazy } from 'react'
+
+const ProductInward = lazy(() => import('./product/product.component'))
+const Product = lazy(() => import('./product/product.container'))
+const Counter = lazy(() => import('./counter'))
 
 class FormContainer extends Component {
   render() {
     return (
-      <React.Fragment>
-        <ProductInward />
-        <Counter />
-        <Product />
-      </React.Fragment>
+      <>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ProductInward />
+          <Counter />
+          <Product />
+        </Suspense>
+      </>
     )
   }
 }

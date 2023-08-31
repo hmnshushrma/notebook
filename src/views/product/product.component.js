@@ -3,7 +3,7 @@ import { useDispatch ,useSelector } from 'react-redux'
 import { addProduct } from '../../store/storeKeeper/actions'
 import { v4 as uuidv4 } from 'uuid'
 
-let commodity = {
+const commodity = {
   productName: '',
   productPrice: '',
   quantity: '',

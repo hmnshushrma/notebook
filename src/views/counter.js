@@ -1,4 +1,4 @@
-import React , {Fragment} from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 import { increaseCounter, decrementCounter } from '../store/counter/counter.actions'
@@ -9,11 +9,11 @@ function Counter(props) {
     decrement
   } = props
   return (
-    <Fragment>
+    <>
       <p> Counter : { count || 0 } </p>
       <button onClick={() => increase()}> Increment </button>
       <button onClick={() => decrement()}> Decrement </button>
-    </Fragment>
+    </>
   )
 }
 
