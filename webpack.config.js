@@ -150,7 +150,7 @@ const chunks = {
   }
 }
 const prodPlugins = [
-  new MiniCssExtractPlugin(),
+  // new MiniCssExtractPlugin(),
   // new HtmlWebpackPlugin({
   //   template: path.resolve(__dirname, 'index.html'),
   //   filename: 'index.html'
