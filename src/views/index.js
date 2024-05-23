@@ -1,8 +1,6 @@
 import React, { Component, Suspense, lazy } from 'react'
 
 const ProductInward = lazy(() => import('./product/product.component'))
-const Product = lazy(() => import('./product/product.container'))
-const Counter = lazy(() => import('./counter'))
 
 class FormContainer extends Component {
   render() {
@@ -10,8 +8,6 @@ class FormContainer extends Component {
       <>
         <Suspense fallback={<div>Loading...</div>}>
           <ProductInward />
-          <Counter />
-          <Product />
         </Suspense>
       </>
     )

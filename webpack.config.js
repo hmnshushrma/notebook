@@ -29,7 +29,7 @@ const config = {
     chunkFilename: '[name].bundle.js'
   },
   devServer: {
-    hot: true,
+    // hot: true,
     // host:'0.0.0.0',
     port: 3000,
     historyApiFallback: true,
@@ -71,7 +71,7 @@ const config = {
     }
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'index.html'),
       filename: 'index.html'

@@ -1,82 +1,104 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch ,useSelector } from 'react-redux'
-import { addProduct } from '../../store/storeKeeper/actions'
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
+import { addItem } from '../../store/shop.slice'
 
-const commodity = {
+import {
+  Form,
+  Label,
+  Input,
+  TextArea,
+  Button
+} from '../../styles/styles-components'
+
+const initialCommodity = {
   productName: '',
   productPrice: '',
   quantity: '',
-  productDesc:''
+  productDesc: ''
 }
 
-function ProductInward(props) {
-  // Declare a new state variable, which we'll call "count"
-
-  const [product, setProductDetails] = useState({commodity})
-  const [productList, setProductList] = useState([])
-  const productsCollection = useSelector(state => state.products)
+const ProductInward = () => {
   const dispatch = useDispatch()
-  const productArr = productsCollection.product
+  const [product, setProductDetails] = useState(initialCommodity)
+  const productsCollection = useSelector(state => state.shop)
 
-  const handleProductOrder = (e) => {
+  const handleProductOrder = e => {
+    const { name, value } = e.target
+    setProductDetails(prevProduct => ({
+      ...prevProduct,
+      [name]: value
+    }))
+  }
+
+  const onSubmitList = e => {
     e.preventDefault()
-    console.log(e.target.name, e.target.value)
-    setProductDetails({...product ,[e.target.name]: e.target.value})
-  }
-  const onSubmitList = () => {
-    console.log(product,'product')
-    setProductList([ ...productList, product ])
+    // setProductList(prevProductList => [...prevProductList, product])
+    setProductDetails(initialCommodity)
+
+    dispatch(addItem(product))
   }
 
-  useEffect((props)=>{
-    handleAddOfProduct()
-  },[productList])
-
-  const handleAddOfProduct = () => {
-    console.log('effect',productList)
-    dispatch(addProduct(productList))
-  }
+  // useEffect(() => {
+  //   if (productList.length) {
+  //     // dispatch(addProduct(productList))
+  //   }
+  // }, [productList, dispatch])
 
   return (
     <div>
-      <label htmlFor='quantity'>
-    quantity
-        <input type='text' name='quantity' value={product.quantity} placeholder='quantity' onChange={(e) => handleProductOrder(e)} />
-      </label>
-
-
-      <label htmlFor='productPrice'>
-    productPrice
-        <input type='text' name='productPrice' value={product.productPrice} placeholder='product price' onChange={(e) => handleProductOrder(e)} />
-      </label>
-
-      <label htmlFor='productName'>
-    productName
-        <input type='text' name='productName' value={product.productName} placeholder='product name' onChange={(e) => handleProductOrder(e)} />
-      </label>
-
-      <label htmlFor='productDesc'>
-    Product Description
-        <textarea name='productDesc' value={product.productDesc} onChange={(e) => handleProductOrder(e)} />
-      </label>
-      <button onClick={e => onSubmitList(e)} > Submit </button>
-      {productArr && productArr.map((productItem) => {
-      return(
-        <ul key={uuidv4()}>
-          <li> {productItem.productName} </li>
-          <li> {productItem.productPrice} </li>
-          <li> {productItem.quantity} </li>
-        </ul>
-      )
-    })}
+      <Form onSubmit={onSubmitList}>
+        <Label htmlFor='quantity'>
+          Quantity
+          <Input
+            type='text'
+            name='quantity'
+            value={product.quantity}
+            placeholder='Quantity'
+            onChange={handleProductOrder}
+          />
+        </Label>
+        <Label htmlFor='productPrice'>
+          Product Price
+          <Input
+            type='text'
+            name='productPrice'
+            value={product.productPrice}
+            placeholder='Product Price'
+            onChange={handleProductOrder}
+          />
+        </Label>
+        <Label htmlFor='productName'>
+          Product Name
+          <Input
+            type='text'
+            name='productName'
+            value={product.productName}
+            placeholder='Product Name'
+            onChange={handleProductOrder}
+          />
+        </Label>
+        <Label htmlFor='productDesc'>
+          Product Description
+          <TextArea
+            name='productDesc'
+            value={product.productDesc}
+            placeholder='Product Description'
+            onChange={handleProductOrder}
+          />
+        </Label>
+        <Button type='submit'>Submit</Button>
+      </Form>
+      {productsCollection &&
+        productsCollection.map(products => (
+          <ul key={uuidv4()}>
+            <li>{products?.warehouseStack?.productName}</li>
+            <li>{products?.warehouseStack?.productPrice}</li>
+            <li>{products?.warehouseStack?.quantity}</li>
+          </ul>
+        ))}
     </div>
   )
 }
-export default ProductInward
 
-// pushup 10 3
-// desi pushup 10 3
-// chest press
-// lat row
-// lunges
+export default ProductInward

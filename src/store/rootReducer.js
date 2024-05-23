@@ -1,9 +1,6 @@
 import { combineReducers } from 'redux'
-import counterReducer from './counter/counter.reducer'
-import productReducer from './storeKeeper/reducer'
+import shopReducer from './shop.slice'
 
-const rootReducer = combineReducers({
-    counter: counterReducer,
-    products: productReducer
+export const rootReducer = combineReducers({
+  shop: shopReducer
 })
-export default rootReducer
