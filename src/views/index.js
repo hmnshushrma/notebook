@@ -1,17 +1,7 @@
-import React, { Component, Suspense, lazy } from 'react'
+import React from 'react'
 
-const ProductInward = lazy(() => import('./product/product.component'))
-
-class FormContainer extends Component {
-  render() {
-    return (
-      <>
-        <Suspense fallback={<div>Loading...</div>}>
-          <ProductInward />
-        </Suspense>
-      </>
-    )
-  }
+const index = () => {
+  return <div>index</div>
 }
 
-export default FormContainer
+export default index

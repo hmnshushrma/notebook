@@ -9,9 +9,6 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 //
 const isProduction = process.env.NODE_ENV === 'production'
 const dotenv = require('dotenv')
-const stylesHandler = isProduction
-  ? MiniCssExtractPlugin.loader
-  : 'style-loader'
 
 const env = dotenv.config().parsed
 const envKeys = Object.keys(env).reduce((prev, next) => {
@@ -108,14 +105,16 @@ const config = {
       },
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, stylesHandler, 'css-loader']
+        use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader']
       },
       {
         test: /\.s[ac]ss$/i,
         use: [
-          MiniCssExtractPlugin.loader,
-          stylesHandler,
+          // Creates `style` nodes from JS strings
+          'style-loader',
+          // Translates CSS into CommonJS
           'css-loader',
+          // Compiles Sass to CSS
           'sass-loader'
         ]
       },
